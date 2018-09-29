@@ -15,27 +15,27 @@ var list = [{
     title: '酱油，耗油，植物油',
     dec: '酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油',
     url: 'photo.jpg',
-    id: 1
+    id: 2
+}, {
+    title: '酱油，耗油，植物油',
+    dec: '酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油酱油开心，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油',
+    url: 'home.jpg',
+    id: 3
 }, {
     title: '酱油，耗油，植物油',
     dec: '酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油',
     url: 'photo.jpg',
-    id: 1
+    id: 4
 }, {
     title: '酱油，耗油，植物油',
     dec: '酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油',
     url: 'photo.jpg',
-    id: 1
+    id: 5
 }, {
     title: '酱油，耗油，植物油',
     dec: '酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油',
     url: 'photo.jpg',
-    id: 1
-}, {
-    title: '酱油，耗油，植物油',
-    dec: '酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油',
-    url: 'photo.jpg',
-    id: 1
+    id: 6
 }];
 
 
@@ -51,13 +51,31 @@ router.get('/list', function(req, res, next) {
             title: '酱油，耗油，植物油',
             dec: '酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油酱油，耗油，植物油',
             url: 'photo.jpg',
-            id: i
+            id: i + 7
         }
         list.push(item);
     }
-    res.json({
-        err_code: 200,
-        msg: list
+    res.send(list);
+});
+
+router.get('/detail', function(req, res, next) {
+    // var id = req.param.id;
+    list.forEach(ele => {
+        if (ele.id == req.query.id) {
+            res.send(ele);
+        }
     });
 });
+
+router.get('/search', function(req, res, next) {
+    var searchVaule = req.query.searchValue;
+    var searchList = [];
+    list.forEach(ele => {
+        if (ele.title.indexOf(searchVaule) > 0 || ele.dec.indexOf(searchVaule) > 0) {
+            searchList.push(ele);
+        }
+    });
+    res.send(searchList);
+});
+
 module.exports = router;
